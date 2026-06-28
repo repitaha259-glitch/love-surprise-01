@@ -1,88 +1,293 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>💔 For You</title>
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: linear-gradient(135deg, #ffb6c1, #ff69b4);
-      font-family: Arial, sans-serif;
-      overflow: hidden;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Will you give me another chance?</title>
 
-    .box {
-      text-align: center;
-      color: white;
-      padding: 20px;
-    }
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;600&display=swap" rel="stylesheet">
 
-    h1 {
-      font-size: 26px;
-    }
+<style>
+body {
+  margin: 0;
+  overflow: hidden;
+  font-family: 'Quicksand', sans-serif;
+  color: white;
+  height: 100vh;
 
-    button {
-      padding: 12px 25px;
-      font-size: 18px;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      margin: 10px;
-    }
+  background: linear-gradient(-45deg, #ffb6c1, #ff69b4, #6a0dad, #2a1230);
+  background-size: 400% 400%;
+  animation: gradientMove 12s ease infinite;
+}
 
-    #yes {
-      background: #ff4d6d;
-      color: white;
-    }
+/* readability overlay */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.30);
+  z-index: 0;
+}
 
-    #no {
-      background: white;
-      color: #ff4d6d;
-      position: absolute;
-    }
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 
-    .hidden {
-      display: none;
-    }
+/* moon */
+.moon {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #fff, #eee, #bbb);
+  box-shadow: 0 0 40px rgba(255,255,255,0.7);
+  animation: moonFloat 8s ease-in-out infinite;
+  z-index: 2;
+}
 
-    #msg {
-      margin-top: 20px;
-      font-size: 22px;
-    }
-  </style>
+@keyframes moonFloat {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(10px); }
+}
+
+/* box */
+.box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 520px;
+
+  padding: 25px 18px;
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  background: rgba(255,255,255,0.14);
+  border-radius: 20px;
+  backdrop-filter: blur(16px);
+
+  z-index: 2;
+}
+
+h1 {
+  margin: 0;
+  font-size: 26px;
+}
+
+#typing {
+  min-height: 40px;
+  font-size: 18px;
+  color: #ffe4f1;
+}
+
+/* buttons BIGGER for phone */
+button {
+  padding: 14px 22px;
+  font-size: 18px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  width: 100%;
+  max-width: 250px;
+  margin: 0 auto;
+}
+
+#yes {
+  background: #ffb6c1;
+}
+
+#no {
+  background: #ffffff;
+}
+
+/* cats */
+.corner-cat, .rose-cat {
+  position: fixed;
+  font-size: 14px;
+  width: 200px;
+  padding: 12px;
+  background: rgba(255,255,255,0.12);
+  border-radius: 14px;
+  backdrop-filter: blur(12px);
+  z-index: 2;
+}
+
+.corner-cat {
+  bottom: 15px;
+  left: 15px;
+}
+
+.rose-cat {
+  bottom: 15px;
+  right: 15px;
+  text-align: center;
+}
+
+/* floating msg */
+.float-msg {
+  position: absolute;
+  font-size: 16px;
+  opacity: 0.85;
+  animation: floatMsg 5s linear forwards;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes floatMsg {
+  0% { transform: translateY(0); opacity: 0; }
+  10% { opacity: 1; }
+  100% { transform: translateY(-120px); opacity: 0; }
+}
+
+/* petals */
+.petal {
+  position: absolute;
+  top: -20px;
+  width: 18px;
+  height: 18px;
+  background-image: url("https://pngimg.com/uploads/petals/petals_PNG114.png");
+  background-size: cover;
+  opacity: 0.9;
+  animation: fall linear forwards;
+}
+
+@keyframes fall {
+  0% { transform: translateY(-10vh); opacity: 0; }
+  10% { opacity: 1; }
+  100% { transform: translateY(110vh); opacity: 0; }
+}
+</style>
 </head>
+
 <body>
 
-<div class="box">
-  <h1>Will you give me another chance? 💔</h1>
+<div class="moon"></div>
 
-  <button id="yes">Yes ❤️</button>
-  <button id="no">No 😢</button>
+<div class="corner-cat">
+🐱💔 forgive this little fella<br>
+he is really sorry 😿
+</div>
 
-  <h2 id="msg" class="hidden">I promise I’ll do better... 💕</h2>
+<div class="rose-cat">
+🐱🌹 take these roses 💖
+</div>
+
+<audio id="bgmusic" loop>
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8b6b6c1b2.mp3">
+</audio>
+
+<audio id="sadSound">
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_2b9f3b8d8a.mp3">
+</audio>
+
+<button id="musicBtn" style="position:fixed;top:15px;left:15px;z-index:3;">
+🎵 Play Music
+</button>
+
+<div class="box" id="box">
+
+<h1>Will you give me another chance? 💔</h1>
+<p id="typing"></p>
+
+<button id="yes">Yes ❤️</button>
+<button id="no">No 😢</button>
+
 </div>
 
 <script>
-  const noBtn = document.getElementById("no");
-  const yesBtn = document.getElementById("yes");
-  const msg = document.getElementById("msg");
 
-  noBtn.addEventListener("mouseover", () => {
-    const x = Math.random() * (window.innerWidth - 100);
-    const y = Math.random() * (window.innerHeight - 100);
-    noBtn.style.left = x + "px";
-    noBtn.style.top = y + "px";
-  });
+const music = document.getElementById("bgmusic");
+const sad = document.getElementById("sadSound");
 
-  yesBtn.addEventListener("click", () => {
-    msg.classList.remove("hidden");
-    yesBtn.style.display = "none";
-    noBtn.style.display = "none";
-  });
+document.getElementById("musicBtn").onclick = () => music.play();
+
+/* typing */
+const text = "will you give me another chance? 💔";
+let i = 0;
+
+function type(){
+  if(i < text.length){
+    document.getElementById("typing").innerHTML += text[i++];
+    setTimeout(type, 60);
+  }
+}
+type();
+
+/* YES */
+yes.onclick = () => {
+  document.getElementById("box").innerHTML = `
+    <div style="font-size:20px; line-height:1.6;">
+      🌸 thank you…<br><br>
+      💖 I promise I’ll do better this time<br>
+      and never hurt you again
+    </div>
+  `;
+
+  document.body.style.background =
+  "linear-gradient(120deg,#ff9a9e,#fad0c4,#fff1a8)";
+
+  sad.play();
+};
+
+/* NO button runaway */
+const noTexts = [
+"💔 please don’t say no...",
+"🥺 think about it...",
+"💖 I’ll change...",
+"🙏 one more chance..."
+];
+
+let n = 0;
+
+no.onclick = () => {
+  no.innerText = noTexts[n];
+  n = (n + 1) % noTexts.length;
+
+  no.style.position = "absolute";
+  no.style.left = Math.random() * 80 + "vw";
+  no.style.top = Math.random() * 80 + "vh";
+
+  sad.currentTime = 0;
+  sad.play();
+};
+
+/* petals */
+setInterval(() => {
+  const p = document.createElement("div");
+  p.className = "petal";
+
+  const size = 12 + Math.random() * 18;
+  p.style.width = size + "px";
+  p.style.height = size + "px";
+
+  p.style.left = Math.random() * 100 + "vw";
+  p.style.animationDuration = (5 + Math.random() * 6) + "s";
+
+  document.body.appendChild(p);
+  setTimeout(() => p.remove(), 12000);
+}, 120);
+
+/* floating messages */
+function spawnMsg(){
+  const m = document.createElement("div");
+  m.className = "float-msg";
+  m.innerText = ["sorry 😢", "I’m really sorry 😭"][Math.floor(Math.random()*2)];
+  m.style.left = Math.random() * 80 + "vw";
+  m.style.top = (60 + Math.random() * 30) + "vh";
+  document.body.appendChild(m);
+  setTimeout(() => m.remove(), 5000);
+}
+
+setInterval(spawnMsg, 2500);
+
 </script>
 
 </body>
