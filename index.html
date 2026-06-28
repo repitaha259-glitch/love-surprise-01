@@ -20,7 +20,6 @@ body {
   animation: gradientMove 12s ease infinite;
 }
 
-/* readability overlay */
 body::before {
   content: "";
   position: fixed;
@@ -54,7 +53,7 @@ body::before {
   50% { transform: translateY(10px); }
 }
 
-/* box */
+/* main box */
 .box {
   position: absolute;
   top: 50%;
@@ -77,10 +76,7 @@ body::before {
   z-index: 2;
 }
 
-h1 {
-  margin: 0;
-  font-size: 26px;
-}
+h1 { margin: 0; font-size: 26px; }
 
 #typing {
   min-height: 40px;
@@ -88,7 +84,7 @@ h1 {
   color: #ffe4f1;
 }
 
-/* buttons BIGGER for phone */
+/* buttons */
 button {
   padding: 14px 22px;
   font-size: 18px;
@@ -100,13 +96,8 @@ button {
   margin: 0 auto;
 }
 
-#yes {
-  background: #ffb6c1;
-}
-
-#no {
-  background: #ffffff;
-}
+#yes { background: #ffb6c1; }
+#no { background: #ffffff; }
 
 /* cats */
 .corner-cat, .rose-cat {
@@ -120,18 +111,10 @@ button {
   z-index: 2;
 }
 
-.corner-cat {
-  bottom: 15px;
-  left: 15px;
-}
+.corner-cat { bottom: 15px; left: 15px; }
+.rose-cat { bottom: 15px; right: 15px; text-align: center; }
 
-.rose-cat {
-  bottom: 15px;
-  right: 15px;
-  text-align: center;
-}
-
-/* floating msg */
+/* floating messages */
 .float-msg {
   position: absolute;
   font-size: 16px;
@@ -147,22 +130,21 @@ button {
   100% { transform: translateY(-120px); opacity: 0; }
 }
 
-/* petals */
+/* 🌸 PETALS */
 .petal {
-  position: absolute;
+  position: fixed;
   top: -20px;
-  width: 18px;
-  height: 18px;
-  background-image: url("https://pngimg.com/uploads/petals/petals_PNG114.png");
-  background-size: cover;
+  font-size: 22px;
   opacity: 0.9;
+  z-index: 1;
+  pointer-events: none;
   animation: fall linear forwards;
 }
 
 @keyframes fall {
-  0% { transform: translateY(-10vh); opacity: 0; }
+  0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
   10% { opacity: 1; }
-  100% { transform: translateY(110vh); opacity: 0; }
+  100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
 }
 </style>
 </head>
@@ -209,7 +191,7 @@ const sad = document.getElementById("sadSound");
 
 document.getElementById("musicBtn").onclick = () => music.play();
 
-/* typing */
+/* typing effect */
 const text = "will you give me another chance? 💔";
 let i = 0;
 
@@ -237,7 +219,7 @@ yes.onclick = () => {
   sad.play();
 };
 
-/* NO button runaway */
+/* NO button */
 const noTexts = [
 "💔 please don’t say no...",
 "🥺 think about it...",
@@ -259,20 +241,19 @@ no.onclick = () => {
   sad.play();
 };
 
-/* petals */
+/* 🌸 FALLING PETALS (WORKING) */
 setInterval(() => {
   const p = document.createElement("div");
   p.className = "petal";
-
-  const size = 12 + Math.random() * 18;
-  p.style.width = size + "px";
-  p.style.height = size + "px";
+  p.innerText = "🌸";
 
   p.style.left = Math.random() * 100 + "vw";
-  p.style.animationDuration = (5 + Math.random() * 6) + "s";
+  p.style.fontSize = (16 + Math.random() * 22) + "px";
+  p.style.animationDuration = (4 + Math.random() * 5) + "s";
 
   document.body.appendChild(p);
-  setTimeout(() => p.remove(), 12000);
+
+  setTimeout(() => p.remove(), 9000);
 }, 120);
 
 /* floating messages */
